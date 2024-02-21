@@ -1,0 +1,23 @@
+from machine import ADC, Pin
+import utime
+MQ_PIN = 28 
+mq_adc = ADC(Pin(MQ_PIN))
+
+def leggi_valore_mq():
+   
+    valore_adc = mq_adc.read_u16()
+
+    return valore_adc
+
+while True:
+    try:
+        valore_mq = leggi_valore_mq()
+
+        print(valore_mq)
+
+    except Exception as e:
+        print("Errore", e)
+
+   
+    utime.sleep(2)
+
