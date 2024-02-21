@@ -1,0 +1,35 @@
+from machine import Pin, time_pulse_us
+import utime
+
+
+TRIGGER_PIN = 5  
+ECHO_PIN = 4  
+
+trigger = Pin(TRIGGER_PIN, Pin.OUT)
+echo = Pin(ECHO_PIN, Pin.IN)
+
+def misura_distanza():
+    
+    trigger.value(0)
+    utime.sleep_us(2)
+    trigger.value(1)
+    utime.sleep_us(10)
+    trigger.value(0)
+
+    duration = time_pulse_us(echo, 1, 30000) 
+    distance = (duration / 2) * 0.0343
+
+    return distance
+
+while True:
+    try:
+      
+        distanza = misura_distanza()
+
+       
+        print("Distanza: {:.2f} cm".format(distanza))
+
+    except Exception as e:
+        print("Errore durante la misurazione della distanza:", e)
+    utime.sleep(1)
+
