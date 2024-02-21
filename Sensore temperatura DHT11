@@ -1,0 +1,21 @@
+from machine import Pin
+from dht import DHT22
+import utime
+
+DHT_PIN = 28  
+dht = DHT11(Pin(DHT_PIN))
+
+while True:
+    try:
+        dht.measure()
+        temperatura = dht.temperature()
+        umidita = dht.humidity()
+
+        print("Temperatura: {:.1f}°C".format(temperatura))
+        print("Umidità: {:.1f}%".format(umidita))
+
+    except Exception as e:
+        print("Errore durante la lettura del sensore:", e)
+
+    utime.sleep(2)
+
